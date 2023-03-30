@@ -4,7 +4,7 @@ categories: [Computer engineering, Cloud infrastructure]
 tags: [infrastructure, docker, dockerizing, spring, 인프라, 도커, 도커라이징, 스프링]
 ---
 
-현재 저는 Spring Boot + JPA를 활용해서 백엔드 애플리케이션을 개발하고 있으며 이번 포스팅에서는 Spring Boot 애플리케이션을 Dockerizing하는 과정과 그 과정에서 겪었던 이슈들에 대해 적어보려고 합니다.
+현재 Spring Boot + JPA를 활용해서 백엔드 애플리케이션을 개발하고 있으며 이번 포스팅에서는 Spring Boot 애플리케이션을 Dockerizing하는 과정과 그 과정에서 겪었던 이슈들에 대해 적어보려고 합니다.
 
 ## Docker란?
 Docker는 컨테이너를 기반으로 하는 오픈소스 가상화 플랫폼입니다. 쉽게 말해 컨테이너 기반으로 어플리케이션을 작성하고 동작할 수 있게 해줍니다. 이렇게 만들어진 컨테이너는 시스템 환경에 구애받지 않고 도커 엔진만 있다면 어디서든 동일하게 실행시킬 수 있습니다. 이것이 컨테이너의 큰 장점입니다.
