@@ -74,7 +74,7 @@ services:
       - database-mysql
 ```   
    
-docker-compose.yml 파일은 여러 개의 컨테이너를 동시에 띄워 의존 관계 등도 설정해주며 Container Orchestration 할 때 사용합니다. 저는 Spring Boot 백엔드 applicaton과 MySQL 데이터베이스를 함께 사용하기 위해 각각 개별 컨테이너로 띄워 Orchestration 해줬습니다. 또한 추가적으로 adminer라는 DB관련 GUI 웹 서버도 함께 띄워 실행시켜줬습니다.   
+docker-compose.yml 파일은 여러 개의 컨테이너를 동시에 띄워 의존 관계를 설정해주며 Container Orchestration 할 때 사용합니다. 저는 Spring Boot 백엔드 applicaton과 MySQL 데이터베이스를 함께 사용하기 위해 각각 개별 컨테이너로 띄워 Orchestration 해줬습니다. 또한 추가적으로 adminer라는 DB관련 GUI 웹 서버도 함께 띄워 실행시켜줬습니다.   
 여기서도 핵심적인 내용을 위주로 설명드리면, 도커 컴포즈 같은 경우에는 도커 컨테이너 간 내부 네트워크 및 포트를 통해서 통신하고 이때 사용되는 것들이 container_name입니다. 위에서 볼 수 있듯이 depends_on 옵션을 걸어줄 때도 사용되며 추후 application-dev.yml에서도 사용되니 반드시 잘 기억해두시길 바랍니다.   
 또 다른 중요한 부분으로, 위에서 volumnes를 통해 프로젝트 내 mysql-init.d 디렉터리와 docker-entrypoint-initdb.d를 마운트시켜줬습니다. 따라서 도커가 처음 시작될 때 해당 mysql-init.d 디렉터리 내 sql 파일들이 실행되게 됩니다. 저와 같은 경우에는 아래 보시는 것처럼 database를 새로 생성해서 초기화해주는 쿼리를 작성하였습니다. 마지막으로 위 코드에서 반드시 알아둬야 하는 옵션으로 build가 있습니다. 해당 옵션은 Dockerfile을 통해 이미지를 빌드할 경우 사용하는 옵션입니다. 현재 보고있는 docker-compose.yml 파일이 위치한 경로를 기준으로 빌드할 Dockerfile이 위치하는 경로에 맞게 상대 경로로 작성해주면 됩니다.
 
