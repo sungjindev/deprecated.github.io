@@ -26,9 +26,14 @@ tags: [infrastructure, dockerizing, spring, load balancer, spring security, JWT,
 바로 그 원인은 Spring Security에서 Role을 바탕으로 사용자 권한 설계를 하게 되는데 이때 Role을 Array 형태로 저장했지만 빈 배열이 아니고 NULL 값을 가지도록 구현된 부분이 있었어서 발생했던 에러입니다. 배열을 활용한다면 빈 배열과 NULL을 명확히 구분하여 이러한 실수를 하지 않도록 주의해야겠습니다.
 
 ## https 이슈
-프론트엔드와 RESTful API로 
+프론트엔드와 API로 통신하면서 Mixed Content 에러가 발생하였습니다. 이는 https를 사용하고 있는 프론트엔드에서 http를 사용하고 있는 백엔드로 요청을 보낼 때 보안되지 않은 프로토콜로 downgrade를 해야하기 때문에 보안에 취약점이 발생할 수 있어 대부분의 브라우저에서 이를 막는 것입니다. 이를 해결하기 위해서는 각 사용자의 브라우저에서 임시적으로 해당 기능을 해제할 수도 있지만 서비스를 해야하는 입장에서 이는 가능한 선택지가 아니였습니다. 그래서 Backend Application에서도 https를 사용하기로 결정하고 Backend가 올라가 있는 Google Cloud Platform에서 Backend 앞 단에 https를 사용하는 로드 밸런서를 붙여 이를 해결하도록 하였습니다.   
+이때 로드 밸런서의 프론트엔드에서 백엔드 서비스로 잘 도달할 수 있도록 포트 매핑을 해줘야하는데 Spring Application 내 Apache tomcat이 default port로 사용하고 있는 8080 포트로의 매핑이 원활히 이루어지지 않아서 로드 밸런서의 프론트엔드 포트인 80 포트로 통일하여 포트 매핑 이슈를 해결하였습니다.
+이후 로드 밸런서에 도메인을 붙여줬고 https 사용을 위해 SSL 인증서는 기존 Frontend Application에서 사용하고 있던 도메인과 동일한 도메인을 사용하도록 설정해뒀기 때문에 동일한 SSL 인증서를 사용했습니다. 하지만 이후 Backend Application의 도메인이 너무 쉽게 노출되어 버려 보안 이슈가 생길 것 같아서 api.domain.com 과 같이 sub domain을 생성하였는데 **curl 60 SSL: no alternative certificate subject name matches target host name 에러**가 발생했습니다. 이는 표준 SSL 인증서는 하나의 도메인만을 인증할 수 있음을 의미하며 이를 해결하기 위해서는 sub domain을 위한 별도의 SSL 인증서를 추가 발급받거나 조금 더 비용이 비싼 와일드카드 SSL 인증서를 발급받아야 합니다. 저는 하나의 sub domain만을 사용할 예정이었기 때문에 와일드카드 SSL을 구매하는 것은 오버 스펙이라 생각하여 별도의 SSL 인증서를 추가 발급하였습니다. 이를 통해 모든 이슈를 해결할 수 있었습니다.
+
+## 회고
+중간 고사 시험 및 기업 면접이 모두 끝나자마자 갑작스럽게 기획된 일주일 간의 해커톤이었고 보통 중장기적인 프로젝트만 진행하다가 단기 프로젝트를 하려다 보니 처음엔 좀 낯설기도 했습니다. 짧은 기간답게 프론트엔드와 배포 예정일에 임박해서 API를 맞추다보니 https 업그레이드와 같은 이슈가 발생하기도하고 그 과정에서 많은 어려움도 있었습니다. 하지만, 그 누구 한명이라도 자기 파트를 완료하지 못하면 모두의 일주일 간의 노력들이 물거품 될 수 있었기 때문에 끝까지 모두 포기하지 않고 최선을 다했고 그 결과 어버이날 늦은 밤에 정식 배포를 진행할 수 있었습니다. 비록 예정된 시간보다 조금 딜레이되긴 했지만 서비스 첫날 신규 가입자 150명이 되고 사용자 입장에서 보이진 않지만 항상 보안 이슈를 걱정하며 fit하게 설정한 방화벽, 소셜 로그인 및 인증 등 제 노력들이 잘 support해주는 것 같아서 많은 보람을 느꼈습니다. 이번 첫 해커톤을 시작으로 더욱 성장하고 더 유익한 애플리케이션을 만드는데 기여할 수 있도록 노력할 것입니다.
 
 
 ## References
-> https://minkukjo.github.io/devops/2020/08/28/Infra-22/   
+> https://serverfault.com/questions/566426/does-each-subdomain-need-its-own-ssl-certificate  
 
