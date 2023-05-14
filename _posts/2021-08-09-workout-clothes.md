@@ -72,7 +72,7 @@ ForwardIt lower_bound(ForwardIt first, ForwardIt last, const T& value);
 ForwardIt upper_bound(ForwardIt first, ForwardIt last, const T& value);
 ```
 lower_bound()와 upper_bound()는 위와 같은 원형을 가집니다.
-이터레이터를 활용한 범위를 가지는 다른 대부분의 메소드와 마찬가지로 **[first, last)의 범위를 가진다는 점에 주의**하여야 합니다.
+이터레이터를 활용한 범위를 가지는 다른 대부분의 메소드와 마찬가지로 **[first, last)의 범위를 가진다는 점에 주의**해야 합니다.
 또한, **lower_bound()와 upper_bound()모두 원하는 키 값을 해당 범위에서 찾지 못할 경우에 last에 해당하는 iterator가 반환**됩니다.
 
 이렇게 전처리를 해주고 난 뒤에 본격적으로 lost에서 reserve[i]의 전 후에 있는 학생들에게 체육복을 빌려줍니다. **우선적으로 reserve[i]의 앞에 있는 학생들의 체육복을 빌려주도록 설계**하였습니다. 왜냐하면, 예를들어 3번의 학생은 앞에있는 학생인 2번의 학생에게 빌려주고 6번 학생은 뒤에있는 7번 학생에게 빌려준다는 등 이런 식으로 **앞 뒤 혼용하여 빌려주게 되면, 최대한 많은 학생에게 빌려주기 위한 최적의 알고리즘이 나오지 않기 때문**입니다. 
@@ -124,7 +124,7 @@ for (int i : reserve)
 for (int i=0; i<reserve.size(); i++)
   student[reserve[i]] += 1;
 ```
-여기서 **주의해야할 것은 student 배열에 인덱스로 접근할 때 for문의 제어 변수인 i로 접근하는 것이 아니고 reserve[i] 값으로 접근**한다는 점입니다. 문제속 **reserve[i]에는 1보다 큰 값만이 들어있기 때문에 하단 부 for문의 제어변수 역시 1부터 순회**하도록 한 것입니다.
+여기서 **주의해야할 것은 student 배열에 인덱스로 접근할 때 for문의 제어 변수인 i로 접근하는 것이 아니고 reserve[i] 값으로 접근**한다는 점입니다. 문제 속 **reserve[i]에는 1보다 큰 값만이 들어있기 때문에 하단 부 for문의 제어변수 역시 1부터 순회**하도록 한 것입니다.
 
 ## 최적화한 나의 풀이
 ``` cpp
