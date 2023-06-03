@@ -64,7 +64,7 @@ vector<int> calcDistributes(vector<int> answer)
 float number = ceil((100.0 - static_cast<float>(progresses[i])) / speeds[i]);
 ```
 
-그 후 calcDistributes 메소드에서 위에서 구한 days를 활용하여 각 배포시마다 몇개의 기능이 배포되는지 구할 수 있도록 구현하였습니다. 기본적으로는 days[0]과 days[1]을 비교하면서 count를 늘려주고 배포할 시점이 오면 answer 벡터에 push_back()해주는 방식으로 처리하였습니다.
+그 후 calcDistributes 메소드에서 위에서 구한 days를 활용하여 배포할 때마다 몇개의 기능이 배포되는지 구할 수 있도록 구현하였습니다. 기본적으로는 days[0]과 days[1]을 비교하면서 count를 늘려주고 배포할 시점이 오면 answer 벡터에 push_back()해주는 방식으로 처리하였습니다.
 
 ## 다른 사람의 풀이1
 ``` cpp
