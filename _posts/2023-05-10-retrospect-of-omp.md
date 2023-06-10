@@ -9,7 +9,7 @@ tags: [infrastructure, dockerizing, spring, load balancer, spring security, JWT,
 ## Oh My Parents! 프로젝트 소개
 우선 일주일동안 어떤 프로젝트를 어떻게 진행했는지 소개해보려고 합니다. 저는 Backend Engineer 2명, Frontend Engineer 2명, Designer 1명으로 이루어진 팀에서 Backend Engieer로서 회원과 관련된 비즈니스 로직, 인증 및 소셜 로그인 기능 등을 개발하고 CI/CD 구축 및 클라우드 인프라 배포 총괄을 맡았습니다.
 따라서 제가 해커톤을 진행하면서 맞닥뜨렸던 문제들은 모두 이와 관련되어 크게 Spring Security를 활용한 JWT 인증 문제, https 배포를 위한 로드 밸런싱 문제 등이 있었고 이번 포스팅에서는 이러한 이슈들에 대해 자세히 적어보려고 합니다.   
-그 전에 앞서, [Oh My Parents!](https://my-parents.day/) 프로젝트는 웹 애플리케이션 서비스로서 지금도 운영되고 있으며 서비스 정식 배포를 시작한지 하루만에 초기 가입 유저 약 150명이라는 저에게 굉장히 의미있는 결과를 가져다 준 프로젝트입니다.
+그 전에 앞서, [Oh My Parents!](https://my-parents.day/) 프로젝트는 웹 애플리케이션 서비스로서 지금도 운영되고 있으며 서비스 정식 배포를 시작한지 하루만에 초기 가입 유저 약 150명, 하루동안 총 이용자 약 600명이라는 저에게 굉장히 의미있는 결과를 가져다 준 프로젝트입니다.
 
 ![0](/assets/img/retrospect_of_omp/0.png){: w="80%" h="80%" style="border:1px solid #eaeaea; border-radius: 7px; padding: 0px;"}
 
