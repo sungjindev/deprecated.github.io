@@ -157,4 +157,4 @@ int solution(int n, vector<int> lost, vector<int> reserve)
   return answer;
 }
 ```
-최적화한 풀이는 "다른 사람의 풀이1"과 동일하여 자세한 설명은 이하 생략합니다.
+최적화한 풀이는 다른 사람의 풀이1와 동일하여 자세한 설명은 생략하겠습니다.
